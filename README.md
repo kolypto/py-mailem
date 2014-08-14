@@ -70,20 +70,21 @@ Table of Contents
     * <a href="#attachment">Attachment</a>
     * <a href="#imageattachment">ImageAttachment</a>
 * <a href="#postman">Postman</a>
-        * <a href="#postmanconnect">Postman.connect</a>
-        * <a href="#postmanpostmanloopback">Postman.Postman.loopback</a>
+    * <a href="#postmanconnect">Postman.connect</a>
+    * <a href="#postmanpostmanloopback">Postman.Postman.loopback</a>
 * <a href="#connection">Connection</a>
     * <a href="#smtpconnection">SMTPConnection</a>
     * <a href="#loopbackconnection">LoopbackConnection</a>
 * <a href="#template">Template</a>
-        * <a href="#templateset_renderer">Template.set_renderer</a>
-        * <a href="#templatecall">Template.call</a>
-        * <a href="#templatefrom_directory">Template.from_directory</a> 
+    * <a href="#templateset_renderer">Template.set_renderer</a>
+    * <a href="#templatecall">Template.call</a>
+    * <a href="#templatefrom_directory">Template.from_directory</a>
 
-
+Sending Messages
+================
 
 Message
-=======
+----------------------
 ```python
 Message(recipients, subject, html=None,
         text=None, sender=None, cc=None,
@@ -118,8 +119,7 @@ Arguments:
 * `headers`: Additional headers
 
 
-Attachment
-----------
+### Attachment
 ```python
 Attachment(filename, data,
            content_type='application/octet-stream',
@@ -137,8 +137,7 @@ This can be provided to the [`Message`](#message) object on construction.
 * `headers`: Additional headers for the attachment
 
 
-ImageAttachment
----------------
+### ImageAttachment
 ```python
 ImageAttachment(filename, data,
                 disposition='attachment', headers=None)
@@ -173,7 +172,7 @@ Arguments:
 
 
 Postman
-=======
+----------------------
 ```python
 Postman(sender, connection)
 ```
@@ -216,7 +215,7 @@ Get connected Postman context manager.
 
 
 
-### Postman.Postman.loopback
+### Postman.loopback
 ```python
 loopback()
 ```
@@ -229,12 +228,11 @@ See [`LoopbackConnection`](#loopbackconnection).
 
 
 Connection
-==========
+----------
 
 Connection object represents a connection to a service which can send e-mail messages for us.
 
-SMTPConnection
---------------
+### SMTPConnection
 ```python
 SMTPConnection(host, port, username,
                password, local_hostname=None,
@@ -273,8 +271,7 @@ Arguments:
 * `tls`: Use TLS handshake?
 
 
-LoopbackConnection
-------------------
+### LoopbackConnection
 ```python
 LoopbackConnection()
 ```
@@ -327,8 +324,13 @@ Also note that `LoopbackConnection` subclasses `list`, so all list methods, incl
 
 
 
+
+
+Templating
+==========
+
 Template
-========
+--------
 ```python
 Template(subject=None, html=None,
          text=None, attachments=None,

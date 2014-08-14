@@ -63,17 +63,27 @@ Table of Contents
    -  Attachment
    -  ImageAttachment
 
--  Postman \* Postman.connect \* Postman.Postman.loopback
+-  Postman
+
+   -  Postman.connect
+   -  Postman.Postman.loopback
+
 -  Connection
 
    -  SMTPConnection
    -  LoopbackConnection
 
--  Template \* Template.set\_renderer \* Template.call \*
-   Template.from\_directory
+-  Template
+
+   -  Template.set\_renderer
+   -  Template.call
+   -  Template.from\_directory
+
+Sending Messages
+================
 
 Message
-=======
+-------
 
 .. code:: python
 
@@ -113,7 +123,7 @@ Arguments:
 -  ``headers``: Additional headers
 
 Attachment
-----------
+~~~~~~~~~~
 
 .. code:: python
 
@@ -133,7 +143,7 @@ construction.
 -  ``headers``: Additional headers for the attachment
 
 ImageAttachment
----------------
+~~~~~~~~~~~~~~~
 
 .. code:: python
 
@@ -169,7 +179,7 @@ Arguments:
 -  ``data``: The raw file data
 
 Postman
-=======
+-------
 
 .. code:: python
 
@@ -213,8 +223,8 @@ Postman.connect
 
 Get connected Postman context manager.
 
-Postman.Postman.loopback
-~~~~~~~~~~~~~~~~~~~~~~~~
+Postman.loopback
+~~~~~~~~~~~~~~~~
 
 .. code:: python
 
@@ -227,13 +237,13 @@ This allows you to record outgoing messages by mocking a Postman. See
 ```LoopbackConnection`` <#loopbackconnection>`__.
 
 Connection
-==========
+----------
 
 Connection object represents a connection to a service which can send
 e-mail messages for us.
 
 SMTPConnection
---------------
+~~~~~~~~~~~~~~
 
 .. code:: python
 
@@ -275,7 +285,7 @@ Arguments:
 -  ``tls``: Use TLS handshake?
 
 LoopbackConnection
-------------------
+~~~~~~~~~~~~~~~~~~
 
 .. code:: python
 
@@ -330,8 +340,11 @@ will catch the messages:
 Also note that ``LoopbackConnection`` subclasses ``list``, so all list
 methods, including iteration, is available.
 
+Templating
+==========
+
 Template
-========
+--------
 
 .. code:: python
 
