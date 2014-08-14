@@ -363,7 +363,7 @@ Create a `Message` object using the template values.
 * `**kwargs`: keyword arguments for the [`Message`](#message) constructor
 
 
-### `Template.from_directory(path, subject_name, html_name='index.htm', text_name='index.txt', inline_rex='^i-(.*)')`
+### `Template.from_directory(path, subject_name='subject.txt', html_name='index.htm', text_name='index.txt', inline_rex='^i-(.*)')`
 Convenience class method to import a directory as a template:
 
 * `subject.txt` is the subject string template
