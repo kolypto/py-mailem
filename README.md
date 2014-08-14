@@ -66,19 +66,21 @@ Also see [Template](#template).
 Table of Contents
 =================
 
-* <a href="#message">Message</a>
-    * <a href="#attachment">Attachment</a>
-    * <a href="#imageattachment">ImageAttachment</a>
-* <a href="#postman">Postman</a>
-    * <a href="#postmanconnect">Postman.connect</a>
-    * <a href="#postmanpostmanloopback">Postman.Postman.loopback</a>
-* <a href="#connection">Connection</a>
-    * <a href="#smtpconnection">SMTPConnection</a>
-    * <a href="#loopbackconnection">LoopbackConnection</a>
-* <a href="#template">Template</a>
-    * <a href="#templateset_renderer">Template.set_renderer</a>
-    * <a href="#templatecall">Template.call</a>
-    * <a href="#templatefrom_directory">Template.from_directory</a>
+* <a href="#sending-messages">Sending Messages</a>
+    * <a href="#message">Message</a>
+        * <a href="#attachment">Attachment</a>
+        * <a href="#imageattachment">ImageAttachment</a>
+    * <a href="#postman">Postman</a>
+        * <a href="#postmanconnect">Postman.connect</a>
+        * <a href="#postmanloopback">Postman.loopback</a>
+    * <a href="#connection">Connection</a>
+        * <a href="#smtpconnection">SMTPConnection</a>
+        * <a href="#loopbackconnection">LoopbackConnection</a>
+* <a href="#templating">Templating</a>
+    * <a href="#template">Template</a>
+        * <a href="#templateset_renderer">Template.set_renderer</a>
+        * <a href="#templatecall">Template.call</a>
+        * <a href="#templatefrom_directory">Template.from_directory</a> 
 
 Sending Messages
 ================

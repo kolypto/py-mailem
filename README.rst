@@ -58,26 +58,30 @@ Also see `Template <#template>`__.
 Table of Contents
 =================
 
--  Message
+-  Sending Messages
 
-   -  Attachment
-   -  ImageAttachment
+   -  Message
 
--  Postman
+      -  Attachment
+      -  ImageAttachment
 
-   -  Postman.connect
-   -  Postman.Postman.loopback
+   -  Postman
 
--  Connection
+      -  Postman.connect
+      -  Postman.loopback
 
-   -  SMTPConnection
-   -  LoopbackConnection
+   -  Connection
 
--  Template
+      -  SMTPConnection
+      -  LoopbackConnection
 
-   -  Template.set\_renderer
-   -  Template.call
-   -  Template.from\_directory
+-  Templating
+
+   -  Template
+
+      -  Template.set\_renderer
+      -  Template.call
+      -  Template.from\_directory
 
 Sending Messages
 ================
