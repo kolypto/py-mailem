@@ -14,6 +14,7 @@ Full-featured e-mailing system: flexible, slim and sexy.
 * Inline images
 * E-Mail templates
 * Tools for unit-tests
+* Made perfect once and for all. Simple and cute :)
 
 Here'a a full example:
 
@@ -83,22 +84,22 @@ Notes:
   so the user will receive both HTML and plaintext. The client will choose which one to display.
 * E-Mail addresses, such as `recipients` and `sender`, can be specified in one of the following formats:
 
-    * 'user@example.com': Just e-mail address
-    * ('user@example.com', u'Honored User'): email address with name
+    * `'user@example.com'`: Just an e-mail address
+    * `('user@example.com', u'Honored User')`: email address with name
 
 Arguments:
 
-* `recipients` (`Iterable[basestring|tuple[basestring]]`): List of recipients
-* `subject` (`basestring`): Message subject
-* `html` (`basestring|None`): Message body, HTML
-* `text` (`basestring|None`): Message body, Text
-* `sender` (`basestring|tuple[basestring]|None`): Sender e-mail address. If not set explicitly, the default will be used on send
-* `cc` (`Iterable[basestring|tuple[basestring]]|None`): CC list
-* `bcc` (`Iterable[basestring|tuple[basestring]]|None`): BCC list
-* `attachments` (`Iterable[mailem.attachment.Attachment]`): List of attachments
-* `reply_to` (`basestring|tuple[basestring]|None`): Reply-to address
-* `date` (`datetime|None`): Send date
-* `headers` (`dict`): Additional headers
+* `recipients`: List of recipients
+* `subject`: Message subject
+* `html`: Message body, HTML
+* `text`: Message body, Text
+* `sender`: Sender e-mail address. If not set explicitly, the default will be used on send
+* `cc`: CC list
+* `bcc`: BCC list
+* `attachments`: List of attachments
+* `reply_to`: Reply-to address
+* `date`: Send date
+* `headers`: Additional headers
 
 
 Attachment
@@ -113,11 +114,11 @@ File attachment information.
 
 This can be provided to the [`Message`](#message) object on construction.
 
-* `filename` (`str|unicode|None`): Filename of attachment
-* `data` (`str|None`): Taw file data
-* `content_type` (`str|None`): File mimetype
-* `disposition` (`str|None`): Content-Disposition: 'attachment', 'inline', ...
-* `headers` (`dict|None`): Additional headers for the attachment
+* `filename`: Filename of attachment
+* `data`: Taw file data
+* `content_type`: File mimetype
+* `disposition`: Content-Disposition: 'attachment', 'inline', ...
+* `headers`: Additional headers for the attachment
 
 
 ImageAttachment
@@ -140,7 +141,7 @@ Image attachment.
     msg = Message(
         ['test@example.com'],
         'Hello',
-        '<img src="cid:flowers.jpg" />',
+        '<img src="cid:flowers.jpg" />',  # Referenced with "cid:<filename>"
         attachments=[
             ImageAttachment('flowers.jpg', open('flowers.jpg').read(), 'inline')
         ]
@@ -149,8 +150,8 @@ Image attachment.
 
 Arguments:
 
-* `filename` (`str|unicode|None`): Image attachment filename. Will also become 'Content-ID' when inlined.
-* `data` (`str|None`): The raw file data
+* `filename`: Image attachment filename. Will also become 'Content-ID' when inlined.
+* `data`: The raw file data
 
 
 
@@ -185,9 +186,9 @@ with postman.connect() as c:
     c.sendmail(msg)
 ```
 
-* `sender` (`basestring|tuple[basestring]`): Default sender: e-mail or (name, email).
+* `sender`: Default sender: e-mail or (name, email).
     Is used for messages which do not specify the sender address explicitly.
-* `connection` (`mailem.connection.IConnection`): Connection object to use. See below.
+* `connection`: Connection object to use. See below.
 
 
 ### Postman.connect()
@@ -235,13 +236,13 @@ with postman.connect() as c:
 
 Arguments:
 
-* `host` (`str`): SMTP server hostname
-* `port` (`int`): SMTP server port number.
-* `username` (`str`): User name to authenticate with
-* `password` (`str`): Password
-* `local_hostname` (`str|None`): FQDN of the local host for the HELO/EHLO command. When `None`, is detected automatically.
-* `ssl` (`bool`): Use SSL protocol?
-* `tls` (`bool`): Use TLS handshake?
+* `host`: SMTP server hostname
+* `port`: SMTP server port number.
+* `username`: User name to authenticate with
+* `password`: Password
+* `local_hostname`: FQDN of the local host for the HELO/EHLO command. When `None`, is detected automatically.
+* `ssl`: Use SSL protocol?
+* `tls`: Use TLS handshake?
 
 
 LoopbackConnection

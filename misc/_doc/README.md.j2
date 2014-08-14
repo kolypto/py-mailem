@@ -1,7 +1,7 @@
 [![Build Status](https://api.travis-ci.org/kolypto/py-mailem.png?branch=master)](https://travis-ci.org/kolypto/py-mailem)
 
 {% macro argspec(args) -%}
-{% for a in args %}{% if a.doc %}* `{{ a.name }}` (`{{ a.type }}`): {{ a.doc }}{% endif %}
+{% for a in args %}{% if a.doc %}* `{{ a.name }}`: {{ a.doc }}{% endif %}
 {% endfor %}
 {%- endmacro %}
 

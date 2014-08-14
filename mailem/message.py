@@ -17,8 +17,8 @@ class Message(object):
       so the user will receive both HTML and plaintext. The client will choose which one to display.
     * E-Mail addresses, such as `recipients` and `sender`, can be specified in one of the following formats:
 
-        * 'user@example.com': Just e-mail address
-        * ('user@example.com', u'Honored User'): email address with name
+        * `'user@example.com'`: Just an e-mail address
+        * `('user@example.com', u'Honored User')`: email address with name
 
     Arguments:
 

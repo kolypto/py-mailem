@@ -6,6 +6,7 @@ Full-featured e-mailing system: flexible, slim and sexy.
 * Inline images
 * E-Mail templates
 * Tools for unit-tests
+* Made perfect once and for all. Simple and cute :)
 
 Here'a a full example:
 

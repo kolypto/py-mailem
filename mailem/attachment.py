@@ -78,7 +78,7 @@ class ImageAttachment(Attachment):
         msg = Message(
             ['test@example.com'],
             'Hello',
-            '<img src="cid:flowers.jpg" />',
+            '<img src="cid:flowers.jpg" />',  # Referenced with "cid:<filename>"
             attachments=[
                 ImageAttachment('flowers.jpg', open('flowers.jpg').read(), 'inline')
             ]
