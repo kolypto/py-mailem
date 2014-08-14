@@ -34,6 +34,10 @@ class Attachment(object):
         self.disposition = disposition
         self.headers = headers or {}
 
+        # Inlining
+        if self.disposition == 'inline':
+            self.headers.setdefault('Content-ID', '<{}>'.format(quote_plus(filename)))
+
     def _build_mime_object(self):
         """ Create a MIMe object
 
@@ -95,10 +99,6 @@ class ImageAttachment(Attachment):
 
     def __init__(self, filename, data, disposition='attachment', headers=None):
         super(ImageAttachment, self).__init__(filename, data, None, disposition, headers)
-
-        # Inlining
-        if self.disposition == 'inline':
-            self.headers.setdefault('Content-ID', '<{}>'.format(quote_plus(filename)))
 
     def _build_mime_object(self):
         return MIMEImage(self.data)

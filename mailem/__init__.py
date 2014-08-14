@@ -55,4 +55,4 @@ Also see [Template](#template).
 from .message import Message
 from .attachment import Attachment, ImageAttachment
 from .postman import Postman
-from . import connection
+from . import connection, template

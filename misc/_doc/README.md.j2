@@ -15,6 +15,12 @@
 {{ argspec(cls.args) }}
 {%- endmacro %}
 
+{% macro fdoc(func) -%}
+{{ func.doc }}
+
+{{ argspec(func.args) }}
+{%- endmacro %}
+
 Mail'Em
 =======
 
@@ -43,10 +49,10 @@ Postman
 =======
 {{ clsdoc(Postman.cls) }}
 
-### Postman.{{ Postman.attrs.connect.signature }}
+### `Postman.{{ Postman.attrs.connect.signature }}`
 {{ Postman.attrs.connect.doc }}
 
-### Postman.{{ Postman.attrs.loopback.signature }}
+### `Postman.{{ Postman.attrs.loopback.signature }}`
 {{ Postman.attrs.loopback.doc }}
 
 Connection
@@ -64,4 +70,13 @@ LoopbackConnection
 
 Template
 ========
+{{ clsdoc(Template.cls) }}
 
+### `Template.{{ Template.attrs.set_renderer.signature }}`
+{{ fdoc(Template.attrs.set_renderer) }}
+
+### `Template.{{ Template.attrs.__call__.signature }}`
+{{ fdoc(Template.attrs.__call__) }}
+
+### `Template.{{ Template.attrs.from_directory.signature }}`
+{{ fdoc(Template.attrs.from_directory) }}

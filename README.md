@@ -4,6 +4,8 @@
 
 
 
+
+
 Mail'Em
 =======
 
@@ -191,10 +193,10 @@ with postman.connect() as c:
 * `connection`: Connection object to use. See below.
 
 
-### Postman.connect()
+### `Postman.connect()`
 Get connected Postman context manager.
 
-### Postman.loopback()
+### `Postman.loopback()`
 Get a context manager which installs a LoopbackConnection on this postman.
 
 This allows you to record outgoing messages by mocking a Postman.
@@ -301,3 +303,88 @@ Also note that `LoopbackConnection` subclasses `list`, so all list methods, incl
 
 Template
 ========
+```python
+Template(subject=None, html=None,
+         text=None, attachments=None,
+         defaults=None)
+```
+
+A templated e-mail.
+
+By default, the Template uses Python's `Template` renderer, which allows simple PHP-style substitution,
+but this can be overridden using set_renderer().
+
+First, a template is defined:
+
+```python
+from mailem import Attachment
+from mailem.template import Template
+
+signup = Template('Congrats $user, you've signed up!',
+    'Welcome to our website!<br><img src="cid:logo.jpg" /> -- $domain',
+    attachments=[
+        Attachment('logo.jpg', open('logo.jpg').read(), 'inline'))
+    ],
+    defaults={'domain': 'localhost'}  # default template values
+)
+```
+
+Now, having the template, you render it to a [`Message`](#message) by calling it:
+
+```python
+message = signup(['user@gmail.com'], dict(user='Honored User',))
+```
+
+Ready for sending! :)
+
+* `subject`: Message subject template
+* `html`: HTML message template, if any
+* `text`: Text message template, if any
+* `attachments`: Attachments for the template. Most probably, inline elements.
+* `defaults`: Default template values, if required. The user can override these later.
+
+
+### `Template.set_renderer(Renderer)`
+Set renderer to be used with this template.
+
+A Renderer is any class that can be constructed with a template string argument,
+and called with template values dict to render it.
+
+When no renderer was explicitly set, it defaults to PythonTemplateRenderer.
+
+* `Renderer`: Renderer class.
+
+
+### `Template.__call__(recipients, values, **kwargs)`
+Create a `Message` object using the template values.
+
+* `recipients`: Message recipients list
+* `values`: Dictionary with template values
+* `**kwargs`: keyword arguments for the [`Message`](#message) constructor
+
+
+### `Template.from_directory(path, subject_name, html_name='index.htm', text_name='index.txt', inline_rex='^i-(.*)')`
+Convenience class method to import a directory as a template:
+
+* `subject.txt` is the subject string template
+* `index.htm` is the HTML template
+* `index.txt` is the plaintext template
+* All files matching the 'i-(*)' format are attached as 'inline', and hence can be referenced in the template:
+
+    E.g. file 'i-flower.jpg' can be inlined as `<img src="cid:flower.jpg" />`.
+
+* All other files are just attachments.
+
+Example:
+
+```python
+signup = Template.from_directory('templates/signup/')
+```
+
+* `path`: Path to the directory
+* `subject_name`: Subject template filename
+* `html_name`: Html template filename
+* `text_name`: Plaintext template filename
+* `inline_rex`: Regular expression to match files that should be inlined.
+
+    If the RegExp defines capture groups, group $1 will be used as the fact filename.
