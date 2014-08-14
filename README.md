@@ -282,6 +282,18 @@ with postman.loopback() as lo:
 sent_messages = lo.get_messages()
 ```
 
+Loopback can be installed multiple times, and only top-level loopback will catch the messages:
+
+```python
+with postman.loopback() as lo1:
+    with postman.loopback() as lo2:
+        with postman.connect() as c:
+            c.sendmail(msg)
+
+len(lo1)  #-> 0
+len(lo2)  #-> 1
+```
+
 Also note that `LoopbackConnection` subclasses `list`, so all list methods, including iteration, is available.
 
 
