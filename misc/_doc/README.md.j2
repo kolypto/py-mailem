@@ -1,0 +1,57 @@
+[![Build Status](https://api.travis-ci.org/kolypto/py-mailem.png?branch=master)](https://travis-ci.org/kolypto/py-mailem)
+
+{% macro argspec(args) -%}
+{% for a in args %}{% if a.doc %}* `{{ a.name }}` (`{{ a.type }}`): {{ a.doc }}{% endif %}
+{% endfor %}
+{%- endmacro %}
+
+{% macro clsspec(cls) -%}
+```python
+{{ cls.signature|wordwrap(40)|indent(1+cls.name|length) }}
+```
+
+{{ cls.doc }}
+
+{{ argspec(cls.args) }}
+{%- endmacro %}
+
+Mail'Em
+=======
+
+{{ mailem.doc }}
+
+
+
+Table of Contents
+=================
+
+
+
+Message
+=======
+{{ clsspec(Message) }}
+
+Attachment
+----------
+{{ clsspec(Attachment) }}
+
+ImageAttachment
+---------------
+{{ clsspec(ImageAttachment) }}
+
+Postman
+=======
+{{ clsspec(Postman) }}
+
+Connection
+==========
+
+{{ connection.doc }}
+
+SMTPConnection
+--------------
+{{ clsspec(SMTPConnection) }}
+
+Template
+========
+

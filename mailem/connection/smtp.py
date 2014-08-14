@@ -1,11 +1,45 @@
 import smtplib
 import itertools
 
-from . import IConnection
+from .base import IConnection
 
 
 class SMTPConnection(IConnection):
-    """ SMTP connection """
+    """ SMTP connection.
+
+    See [smtplib](https://docs.python.org/2/library/smtplib.html) for the list of exceptions that may occur.
+
+    Example:
+
+    ```python
+    postman = Postman('user@gmail.com',
+                  SMTPConnection(
+                      'smtp.gmail.com', 587,
+                      'user@gmail.com', 'pass',
+                      tls=True
+                  ))
+
+    with postman.connect() as c:
+        c.sendmail(msg)
+    ```
+
+    Arguments:
+
+    :param host: SMTP server hostname
+    :type host: str
+    :param port: SMTP server port number.
+    :type port: int
+    :param username: User name to authenticate with
+    :type username: str
+    :param password: Password
+    :type password: str
+    :param local_hostname: FQDN of the local host for the HELO/EHLO command. When `None`, is detected automatically.
+    :type local_hostname: str|None
+    :param ssl: Use SSL protocol?
+    :type ssl: bool
+    :param tls: Use TLS handshake?
+    :type tls: bool
+    """
 
     def __init__(self, host, port, username, password, local_hostname=None, ssl=False, tls=False):
         self.host = host

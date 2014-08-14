@@ -10,14 +10,26 @@ from .util import Address, unicode_header
 class Message(object):
     """ Construct a Message object.
 
-    You just construct it, and then send.
+    Notes:
+
+    * Full unicode support, and Unicode is the default
+    * You can provide `html` or `text` contents. If both are specified -- the message will have an 'alternative' container,
+      so the user will receive both HTML and plaintext. The client will choose which one to display.
+    * E-Mail addresses, such as `recipients` and `sender`, can be specified in one of the following formats:
+
+        * 'user@example.com': Just e-mail address
+        * ('user@example.com', u'Honored User'): email address with name
+
+    Arguments:
 
     :param recipients: List of recipients
     :type recipients: Iterable[basestring|tuple[basestring]]
     :param subject: Message subject
     :type subject: basestring
-    :param body: Message body, HTML
-    :type body: basestring
+    :param html: Message body, HTML
+    :type html: basestring|None
+    :param text: Message body, Text
+    :type text: basestring|None
     :param sender: Sender e-mail address. If not set explicitly, the default will be used on send
     :type sender: basestring|tuple[basestring]|None
     :param cc: CC list
@@ -34,7 +46,7 @@ class Message(object):
     :type headers: dict
     """
 
-    def __init__(self, recipients, subject, html, text=None, sender=None, cc=None, bcc=None, attachments=None, reply_to=None, date=None, headers=None):
+    def __init__(self, recipients, subject, html=None, text=None, sender=None, cc=None, bcc=None, attachments=None, reply_to=None, date=None, headers=None):
         self._recipients = [Address(r) for r in recipients]
         self._subject = subject
         self._html = html

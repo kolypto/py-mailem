@@ -1,6 +1,7 @@
 """ Attachments """
 
 import itertools
+from urllib import quote_plus
 
 from email.encoders import encode_base64
 from email.mime.base import MIMEBase
@@ -14,13 +15,13 @@ class Attachment(object):
 
     This can be provided to the [`Message`](#message) object on construction.
 
-    :param filename: filename of attachment
+    :param filename: Filename of attachment
     :type filename: str|unicode|None
-    :param data: the raw file data
+    :param data: Taw file data
     :type data: str|None
-    :param content_type: file mimetype
+    :param content_type: File mimetype
     :type content_type: str|None
-    :param disposition: content-disposition: 'attachment', 'inline', ...
+    :param disposition: Content-Disposition: 'attachment', 'inline', ...
     :type disposition: str|None
     :param headers: Additional headers for the attachment
     :type headers: dict|None
@@ -55,7 +56,9 @@ class Attachment(object):
         obj.add_header('Content-Disposition', self.disposition, filename=unicode_header(self.filename))
 
         # Add headers
-        itertools.starmap(obj.add_header, self.headers.items())
+        for k, v in self.headers.items():
+            obj[k] = v
+        #itertools.starmap(obj.add_header, self.headers.items())  # does not work
 
         # Finish
         return obj
@@ -81,14 +84,21 @@ class ImageAttachment(Attachment):
             ]
         )
         ```
+
+    Arguments:
+
+    :param filename: Image attachment filename. Will also become 'Content-ID' when inlined.
+    :type filename: str|unicode|None
+    :param data: The raw file data
+    :type data: str|None
     """
 
-    def __init__(self, filename, data, disposition='attachment', header=None):
-        super(ImageAttachment, self).__init__(filename, data, None, disposition, header)
+    def __init__(self, filename, data, disposition='attachment', headers=None):
+        super(ImageAttachment, self).__init__(filename, data, None, disposition, headers)
 
         # Inlining
-        if disposition == 'inline':
-            self.headers.setdefault('Content-ID', '<{}>'.format(filename))
+        if self.disposition == 'inline':
+            self.headers.setdefault('Content-ID', '<{}>'.format(quote_plus(filename)))
 
     def _build_mime_object(self):
         return MIMEImage(self.data)

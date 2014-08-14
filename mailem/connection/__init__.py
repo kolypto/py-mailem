@@ -1,16 +1,3 @@
-class IConnection(object):
+""" Connection object represents a connection to a service which can send e-mail messages for us. """
 
-    def connect(self):
-        """ Establish a connection """
-        raise NotImplementedError()
-
-    def disconnect(self):
-        """ Terminate the connection """
-        raise NotImplementedError()
-
-    def sendmail(self, message):
-        """ Send the message
-
-        :type msg: Message
-        """
-        raise NotImplementedError()
+from .smtp import SMTPConnection

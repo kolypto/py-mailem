@@ -1,14 +1,36 @@
 class Postman(object):
-    """ Connection interface """
+    """ Postman is the object you use to send messages through a configured Connection object.
+
+    Example:
+
+    ```python
+    from mailem import Message, Postman
+    from mailem.connection import SMTPConnection
+
+    # Construct the message
+    msg = Message(
+        ['kolypto@gmail.com'],
+        u"Mail'em test",
+        u"<b>yeah baby, it works!</b>"
+    )
+
+    # Create the postman (see SMTPConnection)
+    postman = Postman('user@gmail.com',
+                      SMTPConnection(...))
+
+    # Connect, and send the message
+    with postman.connect() as c:
+        c.sendmail(msg)
+    ```
+
+    :param sender: Default sender: e-mail or (name, email).
+        Is used for messages which do not specify the sender address explicitly.
+    :type sender: basestring|tuple[basestring]
+    :param connection: Connection object to use. See below.
+    :type connection: mailem.connection.IConnection
+    """
 
     def __init__(self, sender, connection):
-        """ Init the connection with the default sender
-
-        :param sender: Default sender: e-mail or (name, email)
-        :type sender: basestring|tuple[basestring]
-        :param connection: Connection to use
-        :type connection: mailem.connection.IConnection
-        """
         self._sender = sender
         self._connection = connection
 
