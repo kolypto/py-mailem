@@ -5,7 +5,7 @@
 {% endfor %}
 {%- endmacro %}
 
-{% macro clsspec(cls) -%}
+{% macro clsdoc(cls) -%}
 ```python
 {{ cls.signature|wordwrap(40)|indent(1+cls.name|length) }}
 ```
@@ -29,19 +29,25 @@ Table of Contents
 
 Message
 =======
-{{ clsspec(Message) }}
+{{ clsdoc(Message) }}
 
 Attachment
 ----------
-{{ clsspec(Attachment) }}
+{{ clsdoc(Attachment) }}
 
 ImageAttachment
 ---------------
-{{ clsspec(ImageAttachment) }}
+{{ clsdoc(ImageAttachment) }}
 
 Postman
 =======
-{{ clsspec(Postman) }}
+{{ clsdoc(Postman.cls) }}
+
+### Postman.{{ Postman.attrs.connect.signature }}
+{{ Postman.attrs.connect.doc }}
+
+### Postman.{{ Postman.attrs.loopback.signature }}
+{{ Postman.attrs.loopback.doc }}
 
 Connection
 ==========
@@ -50,7 +56,11 @@ Connection
 
 SMTPConnection
 --------------
-{{ clsspec(SMTPConnection) }}
+{{ clsdoc(SMTPConnection) }}
+
+LoopbackConnection
+------------------
+{{ clsdoc(LoopbackConnection) }}
 
 Template
 ========

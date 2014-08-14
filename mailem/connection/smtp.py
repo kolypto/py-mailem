@@ -12,6 +12,9 @@ class SMTPConnection(IConnection):
     Example:
 
     ```python
+    from mailem import Postman
+    from mailem.connection import SMTPConnection
+
     postman = Postman('user@gmail.com',
                   SMTPConnection(
                       'smtp.gmail.com', 587,

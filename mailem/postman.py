@@ -1,3 +1,6 @@
+from .connection.lo import LoopbackConnection
+
+
 class Postman(object):
     """ Postman is the object you use to send messages through a configured Connection object.
 
@@ -35,11 +38,22 @@ class Postman(object):
         self._connection = connection
 
     def connect(self):
-        """ Get connected Postman context manager
+        """ Get connected Postman context manager.
 
         :rtype: mailem.postman.ConnectedPostman
         """
         return ConnectedPostman(self._sender, self._connection)
+
+    def loopback(self):
+        """ Get a context manager which installs a LoopbackConnection on this postman.
+
+        This allows you to record outgoing messages by mocking a Postman.
+        See [`LoopbackConnection`](#loopbackconnection).
+
+        :return: Context manager which loops back outgoing messages
+        :rtype: MockedPostman
+        """
+        return MockedPostman(self)
 
 
 class ConnectedPostman(Postman):
@@ -68,3 +82,27 @@ class ConnectedPostman(Postman):
         """ Disconnect """
         self._connection.disconnect()
         self._connected = False
+
+
+class MockedPostman(LoopbackConnection):
+    """ Mocks Postman with a loopback
+
+    :param postman: Postman to mock
+    :type postman: mailem.postman.Postman
+    """
+
+    def __init__(self, postman):
+        self._postman = postman
+        self._connection_back = None
+        super(MockedPostman, self).__init__()
+
+    def __enter__(self):
+        # Backup
+        self._connection_back = self._postman._connection
+        # Mock with self
+        self._postman._connection = self
+        return self
+
+    def __exit__(self, *exc):
+        # Restore backup
+        self._postman._connection = self._connection_back

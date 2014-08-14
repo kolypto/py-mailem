@@ -190,6 +190,15 @@ with postman.connect() as c:
 * `connection` (`mailem.connection.IConnection`): Connection object to use. See below.
 
 
+### Postman.connect()
+Get connected Postman context manager.
+
+### Postman.loopback()
+Get a context manager which installs a LoopbackConnection on this postman.
+
+This allows you to record outgoing messages by mocking a Postman.
+See [`LoopbackConnection`](#loopbackconnection).
+
 Connection
 ==========
 
@@ -210,6 +219,9 @@ See [smtplib](https://docs.python.org/2/library/smtplib.html) for the list of ex
 Example:
 
 ```python
+from mailem import Postman
+from mailem.connection import SMTPConnection
+
 postman = Postman('user@gmail.com',
               SMTPConnection(
                   'smtp.gmail.com', 587,
@@ -230,6 +242,48 @@ Arguments:
 * `local_hostname` (`str|None`): FQDN of the local host for the HELO/EHLO command. When `None`, is detected automatically.
 * `ssl` (`bool`): Use SSL protocol?
 * `tls` (`bool`): Use TLS handshake?
+
+
+LoopbackConnection
+------------------
+```python
+LoopbackConnection()
+```
+
+Loopback connection allows to record all outgoing messages instead of sending them.
+
+You can install it manually:
+
+```python
+from mailem import Postman
+from mailem.connection import LoopbackConnection
+
+lo = LoopbackConnection()
+postman = Postman('user@example.com', lo)
+#... send
+messages = lo.get_messages()
+```
+
+or you can mock an existing Postman with `loopback()` helper:
+
+```python
+from mailem import Postman
+from mailem.connection import SMTPConnection
+
+postman = Postman('user@example.com',
+              SMTPConnection(...))
+
+with postman.loopback() as lo:
+    # Send
+    with postman.connect() as c:  # mocked!
+        c.sendmail(msg)
+
+# Get
+sent_messages = lo.get_messages()
+```
+
+Also note that `LoopbackConnection` subclasses `list`, so all list methods, including iteration, is available.
+
 
 
 Template
