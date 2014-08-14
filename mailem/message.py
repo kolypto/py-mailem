@@ -114,7 +114,9 @@ class Message(object):
         })
 
         # Finish
-        itertools.starmap(msg.add_header, self._headers.items())
+        for k, v in headers.items():
+            msg[k] = v
+        #itertools.starmap(msg.add_header, headers.items())
         return msg
 
     def __str__(self):
