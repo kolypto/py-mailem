@@ -16,6 +16,10 @@
 {%- endmacro %}
 
 {% macro fdoc(func) -%}
+```python
+{{ func.signature|wordwrap(40)|indent(1+func.name|length) }}
+```
+
 {{ func.doc }}
 
 {{ argspec(func.args) }}
@@ -49,11 +53,11 @@ Postman
 =======
 {{ clsdoc(Postman.cls) }}
 
-### `Postman.{{ Postman.attrs.connect.signature }}`
-{{ Postman.attrs.connect.doc }}
+### {{ Postman.attrs.connect.qualname }}
+{{ fdoc(Postman.attrs.connect) }}
 
-### `Postman.{{ Postman.attrs.loopback.signature }}`
-{{ Postman.attrs.loopback.doc }}
+### Postman.{{ Postman.attrs.loopback.qualname }}
+{{ fdoc(Postman.attrs.loopback) }}
 
 Connection
 ==========
@@ -72,11 +76,11 @@ Template
 ========
 {{ clsdoc(Template.cls) }}
 
-### `Template.{{ Template.attrs.set_renderer.signature }}`
+### {{ Template.attrs.set_renderer.qualname }}
 {{ fdoc(Template.attrs.set_renderer) }}
 
-### `Template.{{ Template.attrs.__call__.signature }}`
+### {{ Template.attrs.__call__.qualname }}
 {{ fdoc(Template.attrs.__call__) }}
 
-### `Template.{{ Template.attrs.from_directory.signature }}`
+### {{ Template.attrs.from_directory.qualname }}
 {{ fdoc(Template.attrs.from_directory) }}

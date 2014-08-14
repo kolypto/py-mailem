@@ -190,13 +190,21 @@ Example:
    messages which do not specify the sender address explicitly.
 -  ``connection``: Connection object to use. See below.
 
-``Postman.connect()``
-~~~~~~~~~~~~~~~~~~~~~
+Postman.connect
+~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    connect()
 
 Get connected Postman context manager.
 
-``Postman.loopback()``
-~~~~~~~~~~~~~~~~~~~~~~
+Postman.Postman.loopback
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    loopback()
 
 Get a context manager which installs a LoopbackConnection on this
 postman.
@@ -355,8 +363,12 @@ Ready for sending! :)
 -  ``defaults``: Default template values, if required. The user can
    override these later.
 
-``Template.set_renderer(Renderer)``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Template.set\_renderer
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    set_renderer(Renderer)
 
 Set renderer to be used with this template.
 
@@ -368,8 +380,12 @@ PythonTemplateRenderer.
 
 -  ``Renderer``: Renderer class.
 
-``Template.__call__(recipients, values, **kwargs)``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Template.\ **call**
+~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    __call__(recipients, values, **kwargs)
 
 Create a ``Message`` object using the template values.
 
@@ -378,8 +394,16 @@ Create a ``Message`` object using the template values.
 -  ``**kwargs``: keyword arguments for the ```Message`` <#message>`__
    constructor
 
-``Template.from_directory(path, subject_name='subject.txt', html_name='index.htm', text_name='index.txt', inline_rex='^i-(.*)')``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Template.from\_directory
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    from_directory(path,
+                   subject_name='subject.txt',
+                   html_name='index.htm',
+                   text_name='index.txt',
+                   inline_rex='^i-(.*)')
 
 Convenience class method to import a directory as a template:
 
