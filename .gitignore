@@ -5,6 +5,7 @@
 /dist/
 /MANIFEST
 /*.egg-info/
+/*.egg/
 
 # ===[ OTHER ]=== #
 
