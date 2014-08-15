@@ -139,7 +139,9 @@ class Template(object):
         self.defaults(defaults or {})
 
     def defaults(self, values):
-        """ Set default values
+        """ Set default values.
+
+        New values will overwrite the previous.
 
         :param values: Default template values
         :type values: dict

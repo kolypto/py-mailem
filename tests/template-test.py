@@ -3,7 +3,7 @@
 import unittest
 
 from mailem import Attachment, ImageAttachment
-from mailem.template import Template
+from mailem.template import Template, TemplateRegistry
 
 
 class TemplateTest(unittest.TestCase):
@@ -27,7 +27,7 @@ class TemplateTest(unittest.TestCase):
         self.assertIn('Content-Type: application/octet-stream', msg_str)
 
     def test_template(self):
-        """ Test template """
+        """ Test Template """
         signup = Template(
             u'Hello $user °C',
             'You are signed up -- <img src="cid:flower.jpg" /> $domain',
@@ -39,6 +39,12 @@ class TemplateTest(unittest.TestCase):
         self._check_signup_template(signup)
 
     def test_from_directory(self):
+        """ Test Template.from_directory() """
         signup = Template.from_directory('tests/data/signup')
         signup.defaults(dict(domain='localhost'))
         self._check_signup_template(signup)
+
+    def test_registry(self):
+        """ Test TemplateRegistry """
+        registry = TemplateRegistry.from_directory('tests/data').defaults(dict(domain='localhost'))
+        self._check_signup_template(registry.get('signup'))

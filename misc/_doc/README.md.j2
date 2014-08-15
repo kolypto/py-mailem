@@ -23,6 +23,7 @@
 {{ func.doc }}
 
 {{ argspec(func.args) }}
+{%if func.ret %}Returns: `{{ func.ret.type }}` {{ func.ret.doc }}{% endif %}
 {%- endmacro %}
 
 Mail'Em
@@ -97,8 +98,31 @@ Template
 ### {{ Template.attrs.set_renderer.qualname }}
 {{ fdoc(Template.attrs.set_renderer) }}
 
+### {{ Template.attrs.defaults.qualname }}
+{{ fdoc(Template.attrs.defaults) }}
+
 ### {{ Template.attrs.__call__.qualname }}
 {{ fdoc(Template.attrs.__call__) }}
 
 ### {{ Template.attrs.from_directory.qualname }}
 {{ fdoc(Template.attrs.from_directory) }}
+
+TemplateRegistry
+----------------
+
+{{ clsdoc(TemplateRegistry.cls) }}
+
+### {{ TemplateRegistry.attrs.add.qualname }}
+{{ fdoc(TemplateRegistry.attrs.add) }}
+
+### {{ TemplateRegistry.attrs.set_renderer.qualname }}
+{{ fdoc(TemplateRegistry.attrs.set_renderer) }}
+
+### {{ TemplateRegistry.attrs.defaults.qualname }}
+{{ fdoc(TemplateRegistry.attrs.defaults) }}
+
+### {{ TemplateRegistry.attrs['get'].qualname }}
+{{ fdoc(TemplateRegistry.attrs['get']) }}
+
+### {{ TemplateRegistry.attrs.from_directory.qualname }}
+{{ fdoc(TemplateRegistry.attrs.from_directory) }}

@@ -18,6 +18,7 @@ data = {
     'SMTPConnection': doc(mailem.connection.SMTPConnection),
     'LoopbackConnection': doc(mailem.connection.LoopbackConnection),
     'Template': doccls(mailem.template.Template, None, lambda k, v: k=='__call__' or not k.startswith('_')),
+    'TemplateRegistry': doccls(mailem.template.TemplateRegistry),
 }
 
 print json.dumps(data, indent=2)

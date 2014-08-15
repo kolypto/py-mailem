@@ -227,6 +227,8 @@ Postman.connect
 
 Get connected Postman context manager.
 
+Returns: ``mailem.postman.ConnectedPostman``
+
 Postman.loopback
 ~~~~~~~~~~~~~~~~
 
@@ -239,6 +241,9 @@ postman.
 
 This allows you to record outgoing messages by mocking a Postman. See
 ```LoopbackConnection`` <#loopbackconnection>`__.
+
+Returns: ``MockedPostman`` Context manager which loops back outgoing
+messages
 
 Connection
 ----------
@@ -411,6 +416,19 @@ PythonTemplateRenderer.
 
 -  ``Renderer``: Renderer class.
 
+Template.defaults
+~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    defaults(values)
+
+Set default values.
+
+New values will overwrite the previous.
+
+-  ``values``: Default template values
+
 Template.\ **call**
 ~~~~~~~~~~~~~~~~~~~
 
@@ -424,6 +442,8 @@ Create a ``Message`` object using the template values.
 -  ``values``: Dictionary with template values
 -  ``**kwargs``: keyword arguments for the ```Message`` <#message>`__
    constructor
+
+Returns: ``Message`` The rendered ``Message`` object
 
 Template.from\_directory
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -464,6 +484,118 @@ Example:
 
    If the RegExp defines capture groups, group $1 will be used as the
    fact filename.
+
+Returns: ``Template`` Template
+
+TemplateRegistry
+----------------
+
+.. code:: python
+
+    TemplateRegistry()
+
+E-Mail template registry.
+
+Simply contains all your templates and allows to render these by name.
+Useful if you have multiple templates in your app and want to have them
+prepared.
+
+Initially, the registry is empty, and you add
+```Template`` <#template>`__ objects one by one:
+
+.. code:: python
+
+    from mailem.template import Template, TemplateRegistry
+
+    templates = TemplateRegistry()
+    templates.add('signup', Template(
+                'Congrats $user, you've signed up!',
+               'Welcome to our website!<br> -- $domain',
+    ))
+    templates.defaults(dict(domain='example.com'))  # set defaults on all templates
+
+Alternatively, you can use
+```TemplateRegistry.from_directory()`` <#templateregistry-fromdirectory>`__
+to load templates from filesystem.
+
+Now, to render a template, you ```get()`` <#templateregistry-get>`__ it
+by name:
+
+.. code:: python
+
+    msg = templates.get('signup')(['user@gmail.com'], dict(user='Honored User',))
+
+TemplateRegistry.add
+~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    add(name, template)
+
+Register a template
+
+-  ``template``: Template object
+
+Returns: ``mailem.template.Template`` The added template (in case you
+want to set something on it)
+
+TemplateRegistry.set\_renderer
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    set_renderer(renderer)
+
+Set renderer to be used with all templates.
+
+Can be called both before adding templates and after.
+
+-  ``renderer``: Renderer class to use
+
+TemplateRegistry.defaults
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    defaults(values)
+
+Set default values on all templates.
+
+New values will overwrite the previous.
+
+Can be called both before adding templates and after.
+
+-  ``values``: Default template values
+
+TemplateRegistry.get
+~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    get(name)
+
+Get a Template by name
+
+-  ``name``: Template name
+
+Returns: ``mailem.template.Template``
+
+TemplateRegistry.from\_directory
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    from_directory(path, **kwargs)
+
+Convenience method to construct a template registry with a directory
+where each template is in a subdirectory
+
+-  ``path``: Path to templates
+-  ``**kwargs``: Arguments to
+   `Template.from\_directory() <#template-from_directory>`__, if
+   required
+
+Returns: ``mailem.template.registry.TemplateRegistry``
 
 .. |Build Status| image:: https://api.travis-ci.org/kolypto/py-mailem.png?branch=master
    :target: https://travis-ci.org/kolypto/py-mailem
