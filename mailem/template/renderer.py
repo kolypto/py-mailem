@@ -4,11 +4,13 @@ from string import Template
 class IRenderer(object):
     """ Base class for template renderer """
 
-    def __init__(self, template):
+    def __init__(self, template, **kwargs):
         """ Init renderer with a template string
 
         :param template: Template string
         :type template: basestring
+        :param kwargs: Additional arguments for the renderer
+        :type kwargs: dict
         """
         raise NotImplementedError()
 
@@ -38,3 +40,27 @@ class PythonTemplateRenderer(IRenderer):
 
     def __call__(self, values):
         return self.template.substitute(values)
+
+
+try:  # Only if jinja2 is available
+    import jinja2
+
+    class Jinja2TemplateRenderer(IRenderer):
+        """ Jinja2 Template Renderer
+
+        See <http://jinja.pocoo.org/docs/>.
+        """
+
+        def __init__(self, template, **kwargs):
+            kwargs.setdefault('undefined', jinja2.StrictUndefined)
+            env = jinja2.Environment(
+                loader=jinja2.FunctionLoader(lambda name: template),
+                **kwargs
+            )
+            self.template = env.get_template('x')
+
+        def __call__(self, values):
+            return self.template.render(values).encode('utf-8')
+
+except ImportError:
+    pass

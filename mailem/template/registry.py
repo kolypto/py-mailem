@@ -74,13 +74,15 @@ class TemplateRegistry(object):
         # Finish
         return self
 
-    def set_renderer(self, renderer):
+    def set_renderer(self, renderer, **kwargs):
         """ Set renderer to be used with all templates.
 
         Can be called both before adding templates and after.
 
         :param renderer: Renderer class to use
         :type renderer: type
+        :param kwargs: Additional arguments for the renderer
+        :type kwargs: dict
         """
         self._renderer = renderer
         assert self._renderer is None, 'Cannot re-assign a renderer'
@@ -88,7 +90,7 @@ class TemplateRegistry(object):
         # Set it on all existing templates
         for t in self._templates.values():
             if not t._renderer:
-                t.set_renderer(self._renderer)
+                t.set_renderer(self._renderer, **kwargs)
 
         # Finish
         return self

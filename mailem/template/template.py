@@ -149,7 +149,7 @@ class Template(object):
         self._default_values.update(values)
         return self
 
-    def set_renderer(self, Renderer):
+    def set_renderer(self, Renderer, **kwargs):
         """ Set renderer to be used with this template.
 
         A Renderer is any class that can be constructed with a template string argument,
@@ -157,15 +157,19 @@ class Template(object):
 
         When no renderer was explicitly set, it defaults to PythonTemplateRenderer.
 
+        See [mailem/template/renderer.py](mailem/template/renderer.py): it's easy to implement renderers with custom behavior!
+
         :param Renderer: Renderer class.
         :type Renderer: type
+        :param kwargs: Additional arguments to renderer, if supported
+        :type kwargs: dict
         """
         assert self._renderer is None, 'Cannot re-assign a renderer'
 
         self._renderer = Renderer
-        self._subject = Renderer(self._subject)
-        self._html = Renderer(self._html) if self._html else None
-        self._text = Renderer(self._text) if self._text else None
+        self._subject = Renderer(self._subject, **kwargs)
+        self._html = Renderer(self._html, **kwargs) if self._html else None
+        self._text = Renderer(self._text, **kwargs) if self._text else None
 
         return self
 

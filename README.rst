@@ -413,7 +413,7 @@ Template.set\_renderer
 
 .. code:: python
 
-    set_renderer(Renderer)
+    set_renderer(Renderer, **kwargs)
 
 Set renderer to be used with this template.
 
@@ -423,7 +423,11 @@ argument, and called with template values dict to render it.
 When no renderer was explicitly set, it defaults to
 PythonTemplateRenderer.
 
+See `mailem/template/renderer.py <mailem/template/renderer.py>`__: it's
+easy to implement renderers with custom behavior!
+
 -  ``Renderer``: Renderer class.
+-  ``**kwargs``: Additional arguments to renderer, if supported
 
 Template.defaults
 ~~~~~~~~~~~~~~~~~
@@ -553,13 +557,14 @@ TemplateRegistry.set\_renderer
 
 .. code:: python
 
-    set_renderer(renderer)
+    set_renderer(renderer, **kwargs)
 
 Set renderer to be used with all templates.
 
 Can be called both before adding templates and after.
 
 -  ``renderer``: Renderer class to use
+-  ``**kwargs``: Additional arguments for the renderer
 
 TemplateRegistry.defaults
 ~~~~~~~~~~~~~~~~~~~~~~~~~

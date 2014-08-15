@@ -4,6 +4,7 @@ import unittest
 
 from mailem import Attachment, ImageAttachment
 from mailem.template import Template, TemplateRegistry
+from mailem.template.renderer import Jinja2TemplateRenderer
 
 
 class TemplateTest(unittest.TestCase):
@@ -36,6 +37,19 @@ class TemplateTest(unittest.TestCase):
             ],
             defaults=dict(domain='localhost')
         )
+        self._check_signup_template(signup)
+
+    def test_jinja2(self):
+        """ Test jinja2 template renderer """
+        signup = Template(
+            u'Hello {{ user }} °C',
+            'You are signed up -- <img src="cid:flower.jpg" /> {{ domain }}',
+            attachments=[
+                ImageAttachment('flower.jpg', '\xff\xd8\xff\xe0\x00\x10JFIF', 'inline'),
+            ],
+            defaults=dict(domain='localhost')
+        )
+        signup.set_renderer(Jinja2TemplateRenderer)
         self._check_signup_template(signup)
 
     def test_from_directory(self):

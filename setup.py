@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 setup(
     # http://pythonhosted.org/setuptools/setuptools.html
     name='mailem',
-    version='0.0.2-0',
+    version='0.0.3-0',
     author='Mark Vartanyan',
     author_email='kolypto@gmail.com',
 
@@ -23,7 +23,7 @@ setup(
     install_requires=[
     ],
     extras_require={
-        '_dev': ['wheel', 'nose', 'exdoc', 'j2cli'],
+        '_dev': ['wheel', 'nose', 'exdoc', 'jinja2', 'j2cli'],
     },
     include_package_data=True,
     test_suite='nose.collector',
