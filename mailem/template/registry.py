@@ -84,8 +84,10 @@ class TemplateRegistry(object):
         :param kwargs: Additional arguments for the renderer
         :type kwargs: dict
         """
-        self._renderer = renderer
         assert self._renderer is None, 'Cannot re-assign a renderer'
+
+        # Store
+        self._renderer = renderer
 
         # Set it on all existing templates
         for t in self._templates.values():
