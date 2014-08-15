@@ -80,8 +80,17 @@ Table of Contents
    -  Template
 
       -  Template.set\_renderer
+      -  Template.defaults
       -  Template.call
       -  Template.from\_directory
+
+   -  TemplateRegistry
+
+      -  TemplateRegistry.add
+      -  TemplateRegistry.set\_renderer
+      -  TemplateRegistry.defaults
+      -  TemplateRegistry.get
+      -  TemplateRegistry.from\_directory
 
 Sending Messages
 ================
@@ -515,10 +524,10 @@ Initially, the registry is empty, and you add
     templates.defaults(dict(domain='example.com'))  # set defaults on all templates
 
 Alternatively, you can use
-```TemplateRegistry.from_directory()`` <#templateregistry-fromdirectory>`__
+```TemplateRegistry.from_directory()`` <#templateregistryfrom_directory>`__
 to load templates from filesystem.
 
-Now, to render a template, you ```get()`` <#templateregistry-get>`__ it
+Now, to render a template, you ```get()`` <#templateregistryget>`__ it
 by name:
 
 .. code:: python
@@ -592,8 +601,7 @@ where each template is in a subdirectory
 
 -  ``path``: Path to templates
 -  ``**kwargs``: Arguments to
-   `Template.from\_directory() <#template-from_directory>`__, if
-   required
+   `Template.from\_directory() <#templatefrom_directory>`__, if required
 
 Returns: ``mailem.template.registry.TemplateRegistry``
 

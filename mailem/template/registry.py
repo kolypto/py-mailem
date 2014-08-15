@@ -22,10 +22,10 @@ class TemplateRegistry(object):
     templates.defaults(dict(domain='example.com'))  # set defaults on all templates
     ```
 
-    Alternatively, you can use [`TemplateRegistry.from_directory()`](#templateregistry-fromdirectory) to load templates
+    Alternatively, you can use [`TemplateRegistry.from_directory()`](#templateregistryfrom_directory) to load templates
     from filesystem.
 
-    Now, to render a template, you [`get()`](#templateregistry-get) it by name:
+    Now, to render a template, you [`get()`](#templateregistryget) it by name:
 
     ```python
     msg = templates.get('signup')(['user@gmail.com'], dict(user='Honored User',))
@@ -39,7 +39,7 @@ class TemplateRegistry(object):
 
         :param path: Path to templates
         :type path: str
-        :param kwargs: Arguments to [Template.from_directory()](#template-from_directory), if required
+        :param kwargs: Arguments to [Template.from_directory()](#templatefrom_directory), if required
         :rtype: mailem.template.registry.TemplateRegistry
         """
         registry = cls()

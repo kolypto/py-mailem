@@ -79,8 +79,15 @@ Table of Contents
 * <a href="#templating">Templating</a>
     * <a href="#template">Template</a>
         * <a href="#templateset_renderer">Template.set_renderer</a>
+        * <a href="#templatedefaults">Template.defaults</a>
         * <a href="#templatecall">Template.call</a>
-        * <a href="#templatefrom_directory">Template.from_directory</a> 
+        * <a href="#templatefrom_directory">Template.from_directory</a>
+    * <a href="#templateregistry">TemplateRegistry</a>
+        * <a href="#templateregistryadd">TemplateRegistry.add</a>
+        * <a href="#templateregistryset_renderer">TemplateRegistry.set_renderer</a>
+        * <a href="#templateregistrydefaults">TemplateRegistry.defaults</a>
+        * <a href="#templateregistryget">TemplateRegistry.get</a>
+        * <a href="#templateregistryfrom_directory">TemplateRegistry.from_directory</a> 
 
 Sending Messages
 ================
@@ -479,10 +486,10 @@ templates.add('signup', Template(
 templates.defaults(dict(domain='example.com'))  # set defaults on all templates
 ```
 
-Alternatively, you can use [`TemplateRegistry.from_directory()`](#templateregistry-fromdirectory) to load templates
+Alternatively, you can use [`TemplateRegistry.from_directory()`](#templateregistryfrom_directory) to load templates
 from filesystem.
 
-Now, to render a template, you [`get()`](#templateregistry-get) it by name:
+Now, to render a template, you [`get()`](#templateregistryget) it by name:
 
 ```python
 msg = templates.get('signup')(['user@gmail.com'], dict(user='Honored User',))
@@ -550,6 +557,6 @@ Convenience method to construct a template registry
 with a directory where each template is in a subdirectory
 
 * `path`: Path to templates
-* `**kwargs`: Arguments to [Template.from_directory()](#template-from_directory), if required
+* `**kwargs`: Arguments to [Template.from_directory()](#templatefrom_directory), if required
 
 Returns: `mailem.template.registry.TemplateRegistry` 
