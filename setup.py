@@ -1,19 +1,20 @@
 #!/usr/bin/env python
-""" Full-featured e-mailing system: flexible, slim and sexy """
+""" Slim, flexible, yet full-featured e-mailing library """
 
 from setuptools import setup, find_packages
 
 setup(
     # http://pythonhosted.org/setuptools/setuptools.html
     name='mailem',
-    version='0.0.3-1',
+    version='0.0.4-0',
     author='Mark Vartanyan',
     author_email='kolypto@gmail.com',
 
     url='https://github.com/kolypto/py-mailem',
     license='BSD',
     description=__doc__,
-    long_description=open('README.rst').read(),
+    long_description=open('README.md').read(),
+    long_description_content_type='text/markdown',
     keywords=['e-mail', 'mail', 'template'],
 
     packages=find_packages(),
@@ -23,7 +24,6 @@ setup(
     install_requires=[
     ],
     extras_require={
-        '_dev': ['wheel', 'nose', 'exdoc', 'jinja2', 'j2cli'],
     },
     include_package_data=True,
     test_suite='nose.collector',
@@ -36,7 +36,7 @@ setup(
         'Natural Language :: English',
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 2',
-        #'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
 )

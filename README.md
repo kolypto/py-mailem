@@ -9,7 +9,7 @@
 Mail'Em
 =======
 
-Full-featured e-mailing system: flexible, slim and sexy.
+Slim, flexible, yet full-featured e-mailing library.
 
 * Unicode
 * Easy attachments
