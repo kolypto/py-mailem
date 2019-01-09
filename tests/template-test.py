@@ -6,6 +6,8 @@ from mailem import Attachment, ImageAttachment
 from mailem.template import Template, TemplateRegistry
 from mailem.template.renderer import Jinja2TemplateRenderer
 
+from future.utils import PY2
+
 
 class TemplateTest(unittest.TestCase):
     def _check_signup_template(self, signup):
@@ -14,17 +16,23 @@ class TemplateTest(unittest.TestCase):
         ])
 
         msg_str = str(msg)
-        print msg_str
+        print(msg_str)
 
         self.assertIn('Subject: =?utf-8?q?Hello_Honored_User_=C2=B0C?=', msg_str)
         self.assertIn('To: kolypto@gmail.com', msg_str)
         self.assertIn('You are signed up -- <img src="cid:flower.jpg" /> localhost', msg_str)
 
-        self.assertIn('Content-Disposition: inline; filename="=?utf-8?q?flower=2Ejpg?="', msg_str)
+        if PY2:
+            self.assertIn('Content-Disposition: inline; filename="=?utf-8?q?flower=2Ejpg?="', msg_str)
+        else:
+            self.assertIn('Content-Disposition: inline; filename="flower.jpg"', msg_str)
         #self.assertIn('Content-Type: image/jpeg', msg_str)
         self.assertIn('Content-ID: <flower.jpg>', msg_str)
 
-        self.assertIn('Content-Disposition: attachment; filename="=?utf-8?q?kolypto=2Egpg?="', msg_str)
+        if PY2:
+            self.assertIn('Content-Disposition: attachment; filename="=?utf-8?q?kolypto=2Egpg?="', msg_str)
+        else:
+            self.assertIn('Content-Disposition: attachment; filename="kolypto.gpg"', msg_str)
         self.assertIn('Content-Type: application/octet-stream', msg_str)
 
     def test_template(self):
@@ -33,7 +41,7 @@ class TemplateTest(unittest.TestCase):
             u'Hello $user °C',
             'You are signed up -- <img src="cid:flower.jpg" /> $domain',
             attachments=[
-                ImageAttachment('flower.jpg', '\xff\xd8\xff\xe0\x00\x10JFIF', 'inline'),
+                ImageAttachment('flower.jpg', b'\xff\xd8\xff\xe0\x00\x10JFIF', 'inline'),
             ],
             defaults=dict(domain='localhost')
         )
@@ -45,7 +53,7 @@ class TemplateTest(unittest.TestCase):
             u'Hello {{ user }} °C',
             'You are signed up -- <img src="cid:flower.jpg" /> {{ domain }}',
             attachments=[
-                ImageAttachment('flower.jpg', '\xff\xd8\xff\xe0\x00\x10JFIF', 'inline'),
+                ImageAttachment('flower.jpg', b'\xff\xd8\xff\xe0\x00\x10JFIF', 'inline'),
             ],
             defaults=dict(domain='localhost')
         )

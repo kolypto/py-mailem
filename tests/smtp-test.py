@@ -21,4 +21,4 @@ class TestSMTP(unittest.TestCase):
                 raise AssertionError('Exception not raised')
         except smtplib.SMTPAuthenticationError as e:
             self.assertEqual(e.smtp_code, 535)
-            self.assertIn('Username and Password not accepted', e.smtp_error)
+            self.assertIn(b'Username and Password not accepted', e.smtp_error)

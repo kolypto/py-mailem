@@ -5,7 +5,7 @@ import json
 
 doccls = lambda cls, *predicates: {
     'cls': doc(cls),
-    'attrs': {name: doc(m) for name, m in getmembers(cls, *predicates)}
+    'attrs': {name: doc(m, cls) for name, m in getmembers(cls, *predicates)}
 }
 
 data = {
@@ -21,4 +21,4 @@ data = {
     'TemplateRegistry': doccls(mailem.template.TemplateRegistry),
 }
 
-print json.dumps(data, indent=2)
+print(json.dumps(data, indent=2))

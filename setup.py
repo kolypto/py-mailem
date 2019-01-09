@@ -22,6 +22,7 @@ setup(
     entry_points={},
 
     install_requires=[
+        'future',
     ],
     extras_require={
     },

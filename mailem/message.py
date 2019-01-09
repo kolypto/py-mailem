@@ -85,14 +85,16 @@ class Message(object):
             msg = text[0]
         else:
             msg = MIMEMultipart('alternative')
-            map(msg.attach, text)
+            for t in text:
+                msg.attach(t)
 
         # Attachments
         if self._attachments:
             _text_msg = msg
             msg = MIMEMultipart()
             msg.attach(_text_msg)
-            map(msg.attach, (a._mime() for a in self._attachments))
+            for a in self._attachments:
+                msg.attach(a._mime())
 
         # Fields
         msg['Subject'] = unicode_header(self._subject)  # special

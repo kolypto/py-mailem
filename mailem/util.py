@@ -3,6 +3,7 @@
 from email import charset
 from email.header import Header
 from email.utils import formataddr
+from past.builtins import basestring
 
 
 # Add charset to the global registry, since we're only using unicode here

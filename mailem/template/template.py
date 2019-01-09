@@ -85,6 +85,8 @@ class Template(object):
         text = None
         attachments = []
 
+        text_file_names = (subject_name, html_name, text_name)
+
         # Find files
         for filename in os.listdir(path):
             # Ignore hidden files
@@ -97,7 +99,7 @@ class Template(object):
                 continue
 
             # Get content
-            with open(fpath) as f:
+            with open(fpath, 'rt' if filename in text_file_names else 'rb') as f:
                 content = f.read()
 
             # Place
@@ -191,7 +193,7 @@ class Template(object):
         if self._renderer is None:
             self.set_renderer(PythonTemplateRenderer)
 
-        values = dict(self._default_values.items() + values.items())
+        values = dict(list(self._default_values.items()) + list(values.items()))
 
         return Message(
             recipients,

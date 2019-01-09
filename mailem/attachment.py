@@ -1,11 +1,9 @@
 """ Attachments """
 
-import itertools
-from urllib import quote_plus
-
 from email.encoders import encode_base64
 from email.mime.base import MIMEBase
 from email.mime.image import MIMEImage
+from future.moves.urllib.parse import quote_plus
 
 from .util import unicode_header
 
@@ -17,8 +15,8 @@ class Attachment(object):
 
     :param filename: Filename of attachment
     :type filename: str|unicode|None
-    :param data: Taw file data
-    :type data: str|None
+    :param data: Raw file data
+    :type data: str|bytes|None
     :param content_type: File mimetype
     :type content_type: str|None
     :param disposition: Content-Disposition: 'attachment', 'inline', ...
