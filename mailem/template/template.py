@@ -1,5 +1,6 @@
 import os
 import re
+from io import open
 
 from .. import Message, Attachment
 from .renderer import PythonTemplateRenderer
@@ -99,7 +100,11 @@ class Template(object):
                 continue
 
             # Get content
-            with open(fpath, 'rt' if filename in text_file_names else 'rb') as f:
+            if filename in text_file_names:
+                f = open(fpath, 'rt', encoding='utf-8')
+            else:
+                f = open(fpath, 'rb')
+            with f:
                 content = f.read()
 
             # Place

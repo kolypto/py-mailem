@@ -15,8 +15,18 @@ class TemplateTest(unittest.TestCase):
             Attachment('kolypto.gpg', '123'),
         ])
 
+        # Accessing protected fields is discouraged, but still, let's make sure they're alright
+        self.assertEqual(msg._subject, u'Hello Honored User °C')
+        self.assertEqual(msg._html,
+                         u'You are signed up -- <img src="cid:flower.jpg" /> localhost\n')
+        self.assertEqual(msg._text, None)
+        self.assertEqual(msg._sender, None)
+        self.assertEqual(msg._cc, [])
+        self.assertEqual(msg._bcc, [])
+        self.assertEqual(msg._reply_to, None)
+
+        # MIME message
         msg_str = str(msg)
-        print(msg_str)
 
         self.assertIn('Subject: =?utf-8?q?Hello_Honored_User_=C2=B0C?=', msg_str)
         self.assertIn('To: kolypto@gmail.com', msg_str)
@@ -39,7 +49,7 @@ class TemplateTest(unittest.TestCase):
         """ Test Template """
         signup = Template(
             u'Hello $user °C',
-            'You are signed up -- <img src="cid:flower.jpg" /> $domain',
+            'You are signed up -- <img src="cid:flower.jpg" /> $domain\n',
             attachments=[
                 ImageAttachment('flower.jpg', b'\xff\xd8\xff\xe0\x00\x10JFIF', 'inline'),
             ],
@@ -51,7 +61,7 @@ class TemplateTest(unittest.TestCase):
         """ Test jinja2 template renderer """
         signup = Template(
             u'Hello {{ user }} °C',
-            'You are signed up -- <img src="cid:flower.jpg" /> {{ domain }}',
+            'You are signed up -- <img src="cid:flower.jpg" /> {{ domain }}\n',
             attachments=[
                 ImageAttachment('flower.jpg', b'\xff\xd8\xff\xe0\x00\x10JFIF', 'inline'),
             ],

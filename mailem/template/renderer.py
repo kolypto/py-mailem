@@ -53,6 +53,7 @@ try:  # Only if jinja2 is available
 
         def __init__(self, template, **kwargs):
             kwargs.setdefault('undefined', jinja2.StrictUndefined)
+            kwargs.setdefault('keep_trailing_newline', True)
             env = jinja2.Environment(
                 loader=jinja2.FunctionLoader(lambda name: template),
                 **kwargs
@@ -60,7 +61,7 @@ try:  # Only if jinja2 is available
             self.template = env.get_template('x')
 
         def __call__(self, values):
-            return self.template.render(values).encode('utf-8')
+            return self.template.render(values)
 
 except ImportError:
     pass
