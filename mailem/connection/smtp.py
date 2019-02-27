@@ -55,11 +55,13 @@ class SMTPConnection(IConnection):
 
         self.client = None
 
+    def _get_client(self):
+        SMTP_CLS = smtplib.SMTP_SSL if self.ssl else smtplib.SMTP
+        return SMTP_CLS(self.host, self.port, self.local_hostname)
+
     def connect(self):
         # Init
-        s = (smtplib.SMTP_SSL
-             if self.ssl else
-             smtplib.SMTP)(self.host, self.port, self.local_hostname)
+        s = self._get_client()
 
         # Handshake
         if self.tls:
@@ -85,5 +87,5 @@ class SMTPConnection(IConnection):
                 message._bcc)],
 
             # Message
-            str(message)
+            str(message).encode()
         )

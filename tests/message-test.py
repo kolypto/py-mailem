@@ -23,7 +23,6 @@ class MessageTest(unittest.TestCase):
             headers={'Custom': 'Test'}
         )
         msg_str = str(msg)
-        print(msg_str)
 
         self.assertIn('multipart/mixed', msg_str)
         self.assertNotIn('multipart/alternative', msg_str)
@@ -59,7 +58,6 @@ class MessageTest(unittest.TestCase):
             ]
         )
         msg_str = str(msg)
-        print(msg_str)
 
         self.assertIn('multipart/mixed', msg_str)
         self.assertIn('multipart/alternative', msg_str)
@@ -79,7 +77,6 @@ class MessageTest(unittest.TestCase):
             ]
         )
         msg_str = str(msg)
-        print(msg_str)
 
         self.assertIn('multipart/mixed', msg_str)
         self.assertNotIn('multipart/alternative', msg_str)
