@@ -1,5 +1,6 @@
 import smtplib
 import itertools
+from future.utils import PY2
 
 from .base import IConnection
 
@@ -76,6 +77,11 @@ class SMTPConnection(IConnection):
         self.client = None
 
     def sendmail(self, message):
+        if PY2:
+            message_bytes = str(message)
+        else:
+            message_bytes = str(message).encode()
+
         self.client.sendmail(
             # From
             message._sender.email,
@@ -87,5 +93,5 @@ class SMTPConnection(IConnection):
                 message._bcc)],
 
             # Message
-            str(message).encode()
+            message_bytes
         )
