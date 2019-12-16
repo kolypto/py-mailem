@@ -55,10 +55,10 @@ class LoopbackConnection(list, IConnection):
     def connect(self):
         pass
 
-    def disconnect(self):
+    def disconnect(self, client):
         pass
 
-    def sendmail(self, message):
+    def sendmail(self, client, message):
         self.append(message)
 
     #region Access messages

@@ -103,7 +103,8 @@ class NoLoginSMTP(SMTPConnection):
     # aiosmtpd does not support AUTH: we can't login()
     # Thus, override it with a method that connects without authentication
     def connect(self):
-        self.client = self._get_client()
+        return self._get_client()
+
 
 
 class TestingSMTPServer(smtpd.SMTPServer, threading.Thread):

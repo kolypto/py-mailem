@@ -54,8 +54,6 @@ class SMTPConnection(IConnection):
         self.ssl = ssl
         self.tls = tls
 
-        self.client = None
-
     def _get_client(self):
         SMTP_CLS = smtplib.SMTP_SSL if self.ssl else smtplib.SMTP
         return SMTP_CLS(self.host, self.port, self.local_hostname)
@@ -70,19 +68,18 @@ class SMTPConnection(IConnection):
         s.login(self.username, self.password)
 
         # Finish
-        self.client = s
+        return s
 
-    def disconnect(self):
-        self.client.quit()
-        self.client = None
+    def disconnect(self, client):
+        client.quit()
 
-    def sendmail(self, message):
+    def sendmail(self, client, message):
         if PY2:
             message_bytes = str(message)
         else:
             message_bytes = str(message).encode()
 
-        self.client.sendmail(
+        client.sendmail(
             # From
             message._sender.email,
 

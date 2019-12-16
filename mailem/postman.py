@@ -69,18 +69,18 @@ class ConnectedPostman(Postman):
         :rtype: mailem.message.Message
         """
         message._sender_default(self._sender)
-        self._connection.sendmail(message)
+        self._connection.sendmail(self.client, message)
         return message
 
     def __enter__(self):
         """ Connect """
-        self._connection.connect()
+        self.client = self._connection.connect()
         self._connected = True
         return self
 
     def __exit__(self, *exc):
         """ Disconnect """
-        self._connection.disconnect()
+        self._connection.disconnect(self.client)
         self._connected = False
 
 
