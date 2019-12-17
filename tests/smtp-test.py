@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import socket
 import unittest
 import smtplib
 import smtpd
@@ -21,6 +22,10 @@ except ImportError:
 
 class TestSMTP(unittest.TestCase):
     def test_smtp(self):
+        # Set socket timeout (because in some cases the test hangs for 120 seconds)
+        socket.setdefaulttimeout(2.0)
+        self.addCleanup(socket.setdefaulttimeout, None)
+
         # Fake
         msg = Message(['test@gmail.com'], 'Test')
         postman = Postman('test@example.com',
@@ -39,7 +44,6 @@ class TestSMTP(unittest.TestCase):
 
     smtpd_port = 50587
 
-    @unittest.skip('No need for this test because we have another one.')
     def test_real_mail_aiosmtpd(self):
         """ Test sending messages with a real-world SMTPD server """
         if aiosmtpd is None:
