@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 setup(
     # http://pythonhosted.org/setuptools/setuptools.html
     name='mailem',
-    version='0.0.4-3',
+    version='0.0.5',
     author='Mark Vartanyan',
     author_email='kolypto@gmail.com',
 
